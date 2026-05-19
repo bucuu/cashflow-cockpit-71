@@ -56,7 +56,7 @@ export function RiskBadge({ risk }: { risk: "Low" | "Medium" | "High" | "Critica
   );
 }
 
-export function Chip({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "teal" | "warning" | "danger" | "forecast" | "success" }) {
+export function Chip({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "teal" | "warning" | "danger" | "forecast" | "success" | "critical" }) {
   const tones = {
     neutral: { c: "#E6EEC9", bg: "rgba(230,238,201,0.06)" },
     teal: { c: "#35858E", bg: "rgba(53,133,142,0.14)" },
@@ -64,6 +64,7 @@ export function Chip({ children, tone = "neutral" }: { children: React.ReactNode
     danger: { c: "#EF4444", bg: "rgba(239,68,68,0.12)" },
     forecast: { c: "#A78BFA", bg: "rgba(167,139,250,0.14)" },
     success: { c: "#22C55E", bg: "rgba(34,197,94,0.12)" },
+    critical: { c: "#DC2626", bg: "rgba(220,38,38,0.16)" },
   } as const;
   const t = tones[tone];
   return (
