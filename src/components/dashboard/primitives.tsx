@@ -9,7 +9,7 @@ export function SectionTitle({ title, subtitle, right }: { title: string; subtit
   return (
     <div className="flex items-end justify-between gap-4 mb-4">
       <div>
-        <h2 className="text-[18px] md:text-[20px] font-semibold tracking-tight text-foreground">{title}</h2>
+        <h2 className="text-[17px] md:text-[19px] font-semibold tracking-tight text-foreground">{title}</h2>
         {subtitle && <p className="text-[12px] text-muted-finance mt-0.5">{subtitle}</p>}
       </div>
       {right}
@@ -18,11 +18,11 @@ export function SectionTitle({ title, subtitle, right }: { title: string; subtit
 }
 
 const sourceColors: Record<Source, string> = {
-  "Bank Data": "#35858E",
-  ERP: "#7DA78C",
-  Manual: "#C2D099",
-  Forecast: "#A78BFA",
-  Recurring: "#F59E0B",
+  "Banka Verisi": "#0F6E78",
+  ERP: "#4F8A6E",
+  Manuel: "#64748B",
+  Tahmin: "#6D28D9",
+  Periyodik: "#D97706",
 };
 
 export function SourceBadge({ source }: { source: Source }) {
@@ -30,7 +30,7 @@ export function SourceBadge({ source }: { source: Source }) {
   return (
     <span
       className="inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium"
-      style={{ color: c, backgroundColor: `${c}1f`, border: `1px solid ${c}33` }}
+      style={{ color: c, backgroundColor: `${c}14`, border: `1px solid ${c}33` }}
     >
       <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: c }} />
       {source}
@@ -38,18 +38,18 @@ export function SourceBadge({ source }: { source: Source }) {
   );
 }
 
-export function RiskBadge({ risk }: { risk: "Low" | "Medium" | "High" | "Critical" }) {
+export function RiskBadge({ risk }: { risk: "Düşük" | "Orta" | "Yüksek" | "Kritik" }) {
   const map = {
-    Low: "#7DA78C",
-    Medium: "#F59E0B",
-    High: "#EF4444",
-    Critical: "#DC2626",
+    "Düşük": "#16A34A",
+    "Orta": "#D97706",
+    "Yüksek": "#DC2626",
+    "Kritik": "#B91C1C",
   } as const;
   const c = map[risk];
   return (
     <span
       className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide"
-      style={{ color: c, backgroundColor: `${c}1a`, border: `1px solid ${c}40` }}
+      style={{ color: c, backgroundColor: `${c}14`, border: `1px solid ${c}40` }}
     >
       {risk}
     </span>
@@ -58,18 +58,18 @@ export function RiskBadge({ risk }: { risk: "Low" | "Medium" | "High" | "Critica
 
 export function Chip({ children, tone = "neutral" }: { children: React.ReactNode; tone?: "neutral" | "teal" | "warning" | "danger" | "forecast" | "success" | "critical" }) {
   const tones = {
-    neutral: { c: "#E6EEC9", bg: "rgba(230,238,201,0.06)" },
-    teal: { c: "#35858E", bg: "rgba(53,133,142,0.14)" },
-    warning: { c: "#F59E0B", bg: "rgba(245,158,11,0.12)" },
-    danger: { c: "#EF4444", bg: "rgba(239,68,68,0.12)" },
-    forecast: { c: "#A78BFA", bg: "rgba(167,139,250,0.14)" },
-    success: { c: "#22C55E", bg: "rgba(34,197,94,0.12)" },
-    critical: { c: "#DC2626", bg: "rgba(220,38,38,0.16)" },
+    neutral: { c: "#475569", bg: "#F1F5F9" },
+    teal: { c: "#0F6E78", bg: "rgba(15,110,120,0.10)" },
+    warning: { c: "#D97706", bg: "rgba(217,119,6,0.10)" },
+    danger: { c: "#DC2626", bg: "rgba(220,38,38,0.10)" },
+    forecast: { c: "#6D28D9", bg: "rgba(109,40,217,0.10)" },
+    success: { c: "#16A34A", bg: "rgba(22,163,74,0.10)" },
+    critical: { c: "#B91C1C", bg: "rgba(185,28,28,0.10)" },
   } as const;
   const t = tones[tone];
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium hairline"
+      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
       style={{ color: t.c, backgroundColor: t.bg, border: `1px solid ${t.c}33` }}
     >
       {children}
