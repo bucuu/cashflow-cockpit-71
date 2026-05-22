@@ -1,19 +1,17 @@
-// Mock data for CashFlow Cockpit — Atlas Manufacturing A.Ş.
+// Mock veri — Atlas Manufacturing A.Ş. Nakit Akışı Kokpiti
 export const fmtTRY = (n: number) => {
   const abs = Math.abs(n);
   if (abs >= 1_000_000) return `${n < 0 ? "-" : ""}₺${(abs / 1_000_000).toFixed(1)}M`;
-  if (abs >= 1_000) return `${n < 0 ? "-" : ""}₺${(abs / 1_000).toFixed(0)}K`;
+  if (abs >= 1_000) return `${n < 0 ? "-" : ""}₺${(abs / 1_000).toFixed(0)}B`;
   return `${n < 0 ? "-" : ""}₺${abs.toFixed(0)}`;
 };
 
-// 30-day cash flow projection (June)
+// 30 günlük nakit akışı projeksiyonu (Haziran)
 export const cashFlowDays = Array.from({ length: 30 }, (_, i) => {
   const day = i + 1;
-  // deterministic pseudo-random
   const seed = (x: number) => Math.abs(Math.sin(x * 9.13 + 1.7));
   const inflowBase = 1.4 + seed(day) * 3.6;
   const outflowBase = 1.2 + seed(day + 7) * 3.4;
-  // spike days
   const spikes: Record<number, { in?: number; out?: number }> = {
     5: { out: 0.85 },
     8: { in: 9.4 },
@@ -27,10 +25,9 @@ export const cashFlowDays = Array.from({ length: 30 }, (_, i) => {
   };
   const inflow = spikes[day]?.in ?? inflowBase;
   const outflow = spikes[day]?.out ?? outflowBase;
-  return { day, label: `Jun ${day}`, inflow: +inflow.toFixed(2), outflow: +outflow.toFixed(2) };
+  return { day, label: `${day} Haz`, inflow: +inflow.toFixed(2), outflow: +outflow.toFixed(2) };
 });
 
-// build running balance starting from 42.8M
 let bal = 42.8;
 export const cashFlowSeries = cashFlowDays.map((d) => {
   bal = bal + d.inflow - d.outflow;
@@ -44,7 +41,6 @@ export const bankMovements = cashFlowSeries.map((d) => ({
   outflow: -+d.outflow.toFixed(2),
 }));
 
-// Check maturity calendar (30 days)
 export const checkCalendar = Array.from({ length: 30 }, (_, i) => {
   const day = i + 1;
   const amounts: Record<number, number> = {
@@ -53,57 +49,51 @@ export const checkCalendar = Array.from({ length: 30 }, (_, i) => {
   return { day, amount: amounts[day] ?? 0 };
 });
 
-// Waterfall
 export const waterfall = [
-  { name: "Opening Cash", value: 42.8, type: "start" as const },
-  { name: "Customer Collections", value: 28.5, type: "pos" as const },
-  { name: "ERP Receivables", value: 18.2, type: "pos" as const },
-  { name: "Recurring Income", value: 6.4, type: "pos" as const },
-  { name: "Salaries", value: -12.0, type: "neg" as const },
-  { name: "Loan Payments", value: -9.8, type: "neg" as const },
-  { name: "Check Payments", value: -18.4, type: "neg" as const },
-  { name: "Promissory Notes", value: -6.2, type: "neg" as const },
-  { name: "Supplier Payments", value: -12.4, type: "neg" as const },
-  { name: "Forecasted Closing", value: 37.1, type: "end" as const },
+  { name: "Açılış Nakdi", value: 42.8, type: "start" as const },
+  { name: "Müşteri Tahsilatları", value: 28.5, type: "pos" as const },
+  { name: "ERP Alacakları", value: 18.2, type: "pos" as const },
+  { name: "Periyodik Gelirler", value: 6.4, type: "pos" as const },
+  { name: "Maaşlar", value: -12.0, type: "neg" as const },
+  { name: "Kredi Ödemeleri", value: -9.8, type: "neg" as const },
+  { name: "Çek Ödemeleri", value: -18.4, type: "neg" as const },
+  { name: "Senet Ödemeleri", value: -6.2, type: "neg" as const },
+  { name: "Tedarikçi Ödemeleri", value: -12.4, type: "neg" as const },
+  { name: "Tahmini Kapanış", value: 37.1, type: "end" as const },
 ];
 
-// Loans
 export const loans = [
-  { bank: "Garanti Bank", principal: 4.2, interest: 0.48 },
-  { bank: "İş Bank", principal: 3.1, interest: 0.36 },
+  { bank: "Garanti Bankası", principal: 4.2, interest: 0.48 },
+  { bank: "İş Bankası", principal: 3.1, interest: 0.36 },
   { bank: "Yapı Kredi", principal: 2.5, interest: 0.31 },
 ];
 
-// Promissory notes aging
 export const notesAging = [
-  { bucket: "Today", value: 0.8, kind: "upcoming" as const },
-  { bucket: "1–7 Days", value: 2.4, kind: "upcoming" as const },
-  { bucket: "8–15 Days", value: 1.7, kind: "low" as const },
-  { bucket: "16–30 Days", value: 3.2, kind: "upcoming" as const },
-  { bucket: "Overdue", value: 0.95, kind: "overdue" as const },
+  { bucket: "Bugün", value: 0.8, kind: "upcoming" as const },
+  { bucket: "1–7 Gün", value: 2.4, kind: "upcoming" as const },
+  { bucket: "8–15 Gün", value: 1.7, kind: "low" as const },
+  { bucket: "16–30 Gün", value: 3.2, kind: "upcoming" as const },
+  { bucket: "Vadesi Geçmiş", value: 0.95, kind: "overdue" as const },
 ];
 
-// Recurring payments
 export const recurring = [
-  { name: "Subscriptions", day: 1, amount: 0.42, color: "#C2D099" },
-  { name: "Rent", day: 5, amount: 0.85, color: "#7DA78C" },
-  { name: "Salaries", day: 15, amount: 12.0, color: "#F59E0B" },
-  { name: "SGK", day: 23, amount: 2.4, color: "#7DA78C" },
-  { name: "Tax / VAT", day: 26, amount: 4.8, color: "#EF4444" },
+  { name: "Abonelikler", day: 1, amount: 0.42, color: "#8FA85A" },
+  { name: "Kira", day: 5, amount: 0.85, color: "#4F8A6E" },
+  { name: "Maaşlar", day: 15, amount: 12.0, color: "#D97706" },
+  { name: "SGK", day: 23, amount: 2.4, color: "#4F8A6E" },
+  { name: "Vergi / KDV", day: 26, amount: 4.8, color: "#DC2626" },
 ];
 
-// Bank accounts
 export const bankAccounts = [
-  { bank: "Garanti Bank", balance: 18.4 },
-  { bank: "İş Bank", balance: 10.8 },
+  { bank: "Garanti Bankası", balance: 18.4 },
+  { bank: "İş Bankası", balance: 10.8 },
   { bank: "Yapı Kredi", balance: 7.6 },
   { bank: "Akbank", balance: 4.1 },
-  { bank: "Ziraat", balance: 1.9 },
+  { bank: "Ziraat Bankası", balance: 1.9 },
 ];
 
-// Upcoming obligations
-export type Risk = "Low" | "Medium" | "High" | "Critical";
-export type Source = "Bank Data" | "ERP" | "Manual" | "Forecast" | "Recurring";
+export type Risk = "Düşük" | "Orta" | "Yüksek" | "Kritik";
+export type Source = "Banka Verisi" | "ERP" | "Manuel" | "Tahmin" | "Periyodik";
 
 export const obligations: {
   date: string;
@@ -115,10 +105,10 @@ export const obligations: {
   risk: Risk;
   sources: Source[];
 }[] = [
-  { date: "Jun 05", day: "Wed", type: "Rent", description: "Headquarters lease — Levent", amount: 0.85, status: "Scheduled", risk: "Low", sources: ["Manual", "Recurring"] },
-  { date: "Jun 10", day: "Mon", type: "Check", description: "Supplier check — Demir A.Ş.", amount: 2.4, status: "Upcoming", risk: "Medium", sources: ["ERP"] },
-  { date: "Jun 12", day: "Wed", type: "Loan", description: "Garanti loan installment", amount: 2.72, status: "Upcoming", risk: "Medium", sources: ["Bank Data"] },
-  { date: "Jun 15", day: "Sat", type: "Salary", description: "Monthly payroll — 412 employees", amount: 12.0, status: "Scheduled", risk: "High", sources: ["Manual", "Recurring"] },
-  { date: "Jun 22", day: "Sat", type: "Check", description: "Equipment financing check", amount: 11.3, status: "Upcoming", risk: "Critical", sources: ["ERP"] },
-  { date: "Jun 26", day: "Wed", type: "VAT", description: "Monthly VAT declaration", amount: 4.8, status: "Scheduled", risk: "High", sources: ["Manual"] },
+  { date: "05 Haz", day: "Çar", type: "Kira", description: "Genel Müdürlük kirası — Levent", amount: 0.85, status: "Planlandı", risk: "Düşük", sources: ["Manuel", "Periyodik"] },
+  { date: "10 Haz", day: "Pzt", type: "Çek", description: "Tedarikçi çeki — Demir A.Ş.", amount: 2.4, status: "Yaklaşıyor", risk: "Orta", sources: ["ERP"] },
+  { date: "12 Haz", day: "Çar", type: "Kredi", description: "Garanti kredi taksiti", amount: 2.72, status: "Yaklaşıyor", risk: "Orta", sources: ["Banka Verisi"] },
+  { date: "15 Haz", day: "Cmt", type: "Maaş", description: "Aylık bordro — 412 personel", amount: 12.0, status: "Planlandı", risk: "Yüksek", sources: ["Manuel", "Periyodik"] },
+  { date: "22 Haz", day: "Cmt", type: "Çek", description: "Ekipman finansman çeki", amount: 11.3, status: "Yaklaşıyor", risk: "Kritik", sources: ["ERP"] },
+  { date: "26 Haz", day: "Çar", type: "KDV", description: "Aylık KDV beyannamesi", amount: 4.8, status: "Planlandı", risk: "Yüksek", sources: ["Manuel"] },
 ];

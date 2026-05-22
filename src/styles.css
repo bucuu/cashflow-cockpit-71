@@ -48,65 +48,60 @@
 }
 
 :root {
-  --radius: 1.25rem;
+  --radius: 0.9rem;
 
-  /* Backgrounds (dark executive) */
-  --background: #07111F;
-  --foreground: #E6EEC9;
-  --card: #101C2F;
-  --card-foreground: #E6EEC9;
-  --card-elevated: #142238;
-  --popover: #142238;
-  --popover-foreground: #E6EEC9;
+  /* Light corporate theme */
+  --background: #F6F8FB;
+  --foreground: #0F172A;
+  --card: #FFFFFF;
+  --card-foreground: #0F172A;
+  --card-elevated: #FFFFFF;
+  --popover: #FFFFFF;
+  --popover-foreground: #0F172A;
 
-  /* Brand */
-  --brand-teal: #35858E;
-  --brand-sage: #7DA78C;
-  --brand-olive: #C2D099;
-  --brand-cream: #E6EEC9;
+  /* Brand — corporate teal/navy */
+  --brand-teal: #0F6E78;
+  --brand-sage: #4F8A6E;
+  --brand-olive: #8FA85A;
+  --brand-cream: #F1F5F9;
 
-  --primary: #35858E;
-  --primary-foreground: #E6EEC9;
-  --secondary: #0B1628;
-  --secondary-foreground: #E6EEC9;
-  --muted: #0B1628;
-  --muted-foreground: #94A3B8;
-  --accent: rgba(53, 133, 142, 0.10);
-  --accent-foreground: #E6EEC9;
-  --destructive: #EF4444;
+  --primary: #0F6E78;
+  --primary-foreground: #FFFFFF;
+  --secondary: #EEF2F7;
+  --secondary-foreground: #0F172A;
+  --muted: #F1F5F9;
+  --muted-foreground: #64748B;
+  --accent: rgba(15, 110, 120, 0.08);
+  --accent-foreground: #0F6E78;
+  --destructive: #DC2626;
   --destructive-foreground: #FFFFFF;
 
-  --border: rgba(230, 238, 201, 0.14);
-  --input: rgba(230, 238, 201, 0.14);
-  --ring: #35858E;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #0F6E78;
 
   /* Semantic financial */
-  --money-in: #22C55E;
-  --money-out: #EF4444;
-  --warning: #F59E0B;
-  --critical: #DC2626;
-  --forecast: #A78BFA;
-  --neutral-text: #94A3B8;
+  --money-in: #16A34A;
+  --money-out: #DC2626;
+  --warning: #D97706;
+  --critical: #B91C1C;
+  --forecast: #6D28D9;
+  --neutral-text: #64748B;
 
-  --sidebar: #0B1628;
-  --sidebar-foreground: #E6EEC9;
-  --sidebar-primary: #35858E;
-  --sidebar-primary-foreground: #E6EEC9;
-  --sidebar-accent: rgba(53, 133, 142, 0.10);
-  --sidebar-accent-foreground: #E6EEC9;
-  --sidebar-border: rgba(230, 238, 201, 0.14);
-  --sidebar-ring: #35858E;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0F172A;
+  --sidebar-primary: #0F6E78;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(15, 110, 120, 0.08);
+  --sidebar-accent-foreground: #0F6E78;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #0F6E78;
 
-  --chart-1: #35858E;
-  --chart-2: #7DA78C;
-  --chart-3: #C2D099;
-  --chart-4: #A78BFA;
-  --chart-5: #F59E0B;
-}
-
-.dark {
-  --background: #07111F;
-  --foreground: #E6EEC9;
+  --chart-1: #0F6E78;
+  --chart-2: #4F8A6E;
+  --chart-3: #8FA85A;
+  --chart-4: #6D28D9;
+  --chart-5: #D97706;
 }
 
 @layer base {
@@ -123,24 +118,25 @@
 
 @layer utilities {
   .surface-card {
-    background: linear-gradient(180deg, rgba(20, 34, 56, 0.85) 0%, rgba(16, 28, 47, 0.85) 100%);
+    background: #FFFFFF;
     border: 1px solid var(--border);
-    border-radius: 1.25rem;
-    box-shadow: 0 1px 0 rgba(230,238,201,0.04) inset, 0 20px 50px -30px rgba(0,0,0,0.6);
+    border-radius: 0.9rem;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -16px rgba(15, 23, 42, 0.08);
   }
   .surface-elevated {
-    background: var(--card-elevated);
+    background: #FFFFFF;
     border: 1px solid var(--border);
-    border-radius: 1.25rem;
+    border-radius: 0.9rem;
+    box-shadow: 0 4px 16px -8px rgba(15, 23, 42, 0.12);
   }
   .brand-tint {
-    background: rgba(53, 133, 142, 0.10);
+    background: rgba(15, 110, 120, 0.08);
   }
   .olive-tint {
-    background: rgba(194, 208, 153, 0.08);
+    background: rgba(143, 168, 90, 0.10);
   }
-  .text-muted-finance { color: #94A3B8; }
-  .hairline { border-color: rgba(230, 238, 201, 0.14); }
+  .text-muted-finance { color: #64748B; }
+  .hairline { border-color: #E2E8F0; }
   .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
-  .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(230,238,201,0.12); border-radius: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
 }

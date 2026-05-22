@@ -14,62 +14,62 @@ type Kpi = {
 };
 
 const toneStyle: Record<Kpi["statusTone"], { c: string; bg: string }> = {
-  success: { c: "#22C55E", bg: "rgba(34,197,94,0.12)" },
-  danger: { c: "#EF4444", bg: "rgba(239,68,68,0.12)" },
-  warning: { c: "#F59E0B", bg: "rgba(245,158,11,0.12)" },
-  forecast: { c: "#A78BFA", bg: "rgba(167,139,250,0.14)" },
-  critical: { c: "#DC2626", bg: "rgba(220,38,38,0.16)" },
+  success: { c: "#16A34A", bg: "rgba(22,163,74,0.10)" },
+  danger: { c: "#DC2626", bg: "rgba(220,38,38,0.10)" },
+  warning: { c: "#D97706", bg: "rgba(217,119,6,0.10)" },
+  forecast: { c: "#6D28D9", bg: "rgba(109,40,217,0.10)" },
+  critical: { c: "#B91C1C", bg: "rgba(185,28,28,0.10)" },
 };
 
 const kpis: Kpi[] = [
   {
-    label: "Available Cash",
-    value: "₺42.8M",
-    subtext: "Across 6 bank accounts",
-    trend: { dir: "up", text: "+₺3.2M vs last 7 days" },
-    status: "Healthy",
+    label: "Kullanılabilir Nakit",
+    value: "₺42,8M",
+    subtext: "6 banka hesabında toplam",
+    trend: { dir: "up", text: "Son 7 güne göre +₺3,2M" },
+    status: "Sağlıklı",
     statusTone: "success",
-    accent: "#35858E",
+    accent: "#0F6E78",
     icon: <Wallet className="w-4 h-4" />,
   },
   {
-    label: "30-Day Net Cash Impact",
-    value: "-₺5.7M",
-    subtext: "Expected inflow minus outflow",
-    status: "Outflow pressure ahead",
+    label: "30 Günlük Net Nakit Etkisi",
+    value: "-₺5,7M",
+    subtext: "Beklenen giriş eksi çıkış",
+    status: "Çıkış baskısı var",
     statusTone: "danger",
-    accent: "#EF4444",
+    accent: "#DC2626",
     icon: <TrendingDown className="w-4 h-4" />,
-    meta: "Inflow ₺68.4M · Outflow ₺74.1M",
+    meta: "Giriş ₺68,4M · Çıkış ₺74,1M",
   },
   {
-    label: "Forecasted Closing Balance",
-    value: "₺37.1M",
-    subtext: "After planned obligations",
-    status: "Above ₺30M safe threshold",
+    label: "Tahmini Kapanış Bakiyesi",
+    value: "₺37,1M",
+    subtext: "Planlanan yükümlülükler sonrası",
+    status: "₺30M güvenli eşiğin üzerinde",
     statusTone: "forecast",
-    accent: "#A78BFA",
+    accent: "#6D28D9",
     icon: <Target className="w-4 h-4" />,
   },
   {
-    label: "Largest Upcoming Payment",
-    value: "₺12.0M",
-    subtext: "Salary Payment",
-    status: "High impact",
+    label: "En Büyük Ödeme",
+    value: "₺12,0M",
+    subtext: "Maaş Ödemesi",
+    status: "Yüksek etki",
     statusTone: "warning",
-    accent: "#F59E0B",
+    accent: "#D97706",
     icon: <CalendarClock className="w-4 h-4" />,
-    meta: "Due Jun 15",
+    meta: "Vade: 15 Haz",
   },
   {
-    label: "Risky Days",
-    value: "4 Days",
-    subtext: "Near or below safe threshold",
-    status: "Attention needed",
+    label: "Riskli Günler",
+    value: "4 Gün",
+    subtext: "Güvenli eşiğe yakın veya altında",
+    status: "Dikkat gerekiyor",
     statusTone: "critical",
-    accent: "#DC2626",
+    accent: "#B91C1C",
     icon: <AlertTriangle className="w-4 h-4" />,
-    meta: "Most critical: Jun 22",
+    meta: "En kritik: 22 Haz",
   },
 ];
 
@@ -79,34 +79,33 @@ export function KpiRow() {
       {kpis.map((k) => {
         const tone = toneStyle[k.statusTone];
         return (
-          <Card key={k.label} className="relative overflow-hidden group transition-all hover:-translate-y-0.5 hover:border-[rgba(230,238,201,0.22)]">
+          <Card key={k.label} className="relative overflow-hidden group transition-all hover:-translate-y-0.5 hover:shadow-md">
             <div
-              className="absolute inset-x-0 top-0 h-[2px]"
-              style={{ background: `linear-gradient(90deg, ${k.accent}, transparent)` }}
+              className="absolute inset-x-0 top-0 h-[3px]"
+              style={{ background: k.accent }}
             />
-            <div className="absolute -right-10 -top-10 w-32 h-32 rounded-full opacity-[0.08] blur-2xl" style={{ background: k.accent }} />
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${k.accent}1f`, color: k.accent }}>
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: `${k.accent}14`, color: k.accent }}>
                   {k.icon}
                 </div>
-                <span className="text-[12px] font-medium text-muted-finance tracking-wide uppercase">{k.label}</span>
+                <span className="text-[11px] font-semibold text-muted-finance tracking-wider uppercase">{k.label}</span>
               </div>
               {k.trend && (
-                <span className={`inline-flex items-center text-[11px] font-medium ${k.trend.dir === "up" ? "text-[#22C55E]" : "text-[#EF4444]"}`}>
-                  {k.trend.dir === "up" ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                <span className={`inline-flex items-center text-[11px] font-medium ${k.trend.dir === "up" ? "text-[#16A34A]" : "text-[#DC2626]"}`}>
+                  {k.trend.dir === "up" ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
                 </span>
               )}
             </div>
             <div className="mt-4">
-              <div className="text-[30px] md:text-[34px] font-bold tracking-tight leading-none" style={{ color: k.accent === "#35858E" ? "#E6EEC9" : k.accent }}>
+              <div className="text-[28px] md:text-[32px] font-bold tracking-tight leading-none text-foreground">
                 {k.value}
               </div>
               <p className="text-[12px] text-muted-finance mt-2">{k.subtext}</p>
-              {k.trend && <p className="text-[11px] mt-1 text-[#7DA78C]">{k.trend.text}</p>}
-              {k.meta && <p className="text-[11px] mt-1 text-muted-finance/80">{k.meta}</p>}
+              {k.trend && <p className="text-[11px] mt-1 text-[#16A34A] font-medium">{k.trend.text}</p>}
+              {k.meta && <p className="text-[11px] mt-1 text-muted-finance">{k.meta}</p>}
             </div>
-            <div className="mt-4 pt-3 border-t hairline flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-[#E2E8F0] flex items-center justify-between">
               <span
                 className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2 py-0.5 rounded-full"
                 style={{ color: tone.c, backgroundColor: tone.bg }}
